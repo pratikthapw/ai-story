@@ -1,6 +1,13 @@
+import BookContainer from "@/components/book-flip/book-container"
+import BookFlip from "@/components/book-flip/flip-book"
+import { story } from "@/lib/temp-story-data"
+
 const Page = () => {
   return (
-    <div>Page</div>
+    <BookContainer variant="custom-flip">
+      <BookFlip pages={story.pages} />
+    </BookContainer>
+
   )
 }
 
