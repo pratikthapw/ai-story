@@ -20,17 +20,14 @@ const ReactPageFlip = ({ pages }: { pages: TSingleStory['pages'] }) => {
             let width = 500
             let height = 700
 
-            // Mobile devices
             if (screenWidth < 640) {
                 width = Math.min(screenWidth * 0.85, 300)
                 height = Math.min(screenHeight * 0.6, 450)
             }
-            // Tablets
             else if (screenWidth < 1024) {
                 width = Math.min(screenWidth * 0.4, 400)
                 height = Math.min(screenHeight * 0.7, 600)
             }
-            // Desktop
             else {
                 width = Math.min(screenWidth * 0.35, 550)
                 height = Math.min(screenHeight * 0.75, 750)
@@ -62,12 +59,11 @@ const ReactPageFlip = ({ pages }: { pages: TSingleStory['pages'] }) => {
                 usePortrait={true}
                 startPage={0}
                 drawShadow={true}
-                flippingTime={1000}
+                flippingTime={400}
                 useMouseEvents={true}
                 swipeDistance={30}
                 autoSize={true}
-                className="shadow-2xl"
-                style={{ margin: '0 auto' }}
+                className="shadow-2xl mx-auto"
             >
                 {pages.flatMap((page, index) => [
                     <ImagePage
@@ -86,95 +82,88 @@ const ReactPageFlip = ({ pages }: { pages: TSingleStory['pages'] }) => {
     )
 }
 
-// Image Page - Left page with full cover image
-// Using React.forwardRef as required by the library
-interface ImagePageProps {
+
+interface RefProps {
+    ref?: React.Ref<HTMLDivElement>
+}
+interface ImagePageProps extends RefProps {
     imageUrl: string
     pageNumber: number
 }
 
-const ImagePage = React.forwardRef<HTMLDivElement, ImagePageProps>(
-    ({ imageUrl, pageNumber }, ref) => {
-        return (
+const ImagePage = ({ imageUrl, pageNumber, ref }: ImagePageProps) => {
+    return (
+        <div
+            ref={ref}
+            className="w-full h-full relative overflow-hidden bg-muted shadow-lg"
+            style={{
+                boxShadow: 'inset -10px 0 20px -5px rgba(0,0,0,0.6)'
+            }}
+        >
+            <Image
+                src={imageUrl}
+                alt={`Page ${pageNumber}`}
+                fill
+                sizes="(max-width: 640px) 300px, (max-width: 1024px) 400px, 550px"
+                className="object-cover"
+                priority={pageNumber <= 2}
+            />
             <div
-                ref={ref}
-                className="bg-gray-100 shadow-lg"
+                className="absolute right-0 top-0 bottom-0 w-16 pointer-events-none"
                 style={{
-                    width: '100%',
-                    height: '100%',
-                    position: 'relative',
-                    overflow: 'hidden',
+                    background: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.05) 20%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.3) 80%, rgba(0,0,0,0.5) 100%)'
                 }}
-            >
-                <Image
-                    src={imageUrl}
-                    alt={`Page ${pageNumber}`}
-                    fill
-                    sizes="(max-width: 640px) 300px, (max-width: 1024px) 400px, 550px"
-                    style={{
-                        objectFit: 'cover',
-                    }}
-                    priority={pageNumber <= 2}
-                />
-            </div>
-        )
-    }
-)
+            />
+            <div
+                className="absolute right-12 top-0 bottom-0 w-8 pointer-events-none opacity-40"
+                style={{
+                    background: 'linear-gradient(to right, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%)'
+                }}
+            />
+        </div>
+    )
+}
 
-ImagePage.displayName = 'ImagePage'
 
-// Text Page - Right page with content
-interface TextPageProps {
+interface TextPageProps extends RefProps {
     text: string
     pageNumber: number
 }
 
-const TextPage = React.forwardRef<HTMLDivElement, TextPageProps>(
-    ({ text, pageNumber }, ref) => {
-        return (
+const TextPage = ({ text, pageNumber, ref }: TextPageProps) => {
+    return (
+        <div
+            ref={ref}
+            className="w-full h-full flex flex-col p-6 overflow-hidden shadow-lg bg-muted relative"
+            style={{
+                boxShadow: 'inset 10px 0 20px -5px rgba(0,0,0,0.6)'
+            }}
+        >
             <div
-                ref={ref}
-                className="bg-white shadow-lg"
+                className="absolute left-0 top-0 bottom-0 w-16 pointer-events-none"
                 style={{
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    padding: '24px',
-                    overflow: 'auto',
+                    background: 'linear-gradient(to left, transparent 0%, rgba(0,0,0,0.05) 20%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.3) 80%, rgba(0,0,0,0.5) 100%)'
                 }}
-            >
-                <div style={{ flex: '1', overflow: 'auto' }}>
-                    <p
-                        style={{
-                            fontSize: 'clamp(12px, 2.5vw, 16px)',
-                            lineHeight: '1.7',
-                            color: '#1a1a1a',
-                            margin: 0,
-                            fontFamily: 'Georgia, "Times New Roman", serif',
-                            textAlign: 'justify',
-                        }}
-                    >
-                        {text}
-                    </p>
-                </div>
-                <div
-                    style={{
-                        marginTop: '16px',
-                        paddingTop: '12px',
-                        textAlign: 'center',
-                        fontSize: '12px',
-                        color: '#999',
-                        borderTop: '1px solid #e5e5e5',
-                    }}
-                >
-                    {pageNumber}
-                </div>
+            />
+            {/* Highlight curve effect */}
+            <div
+                className="absolute left-12 top-0 bottom-0 w-8 pointer-events-none opacity-40"
+                style={{
+                    background: 'linear-gradient(to left, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%)'
+                }}
+            />
+            <div className="flex-1 overflow-hidden pr-2 text-center flex items-center justify-center h-full -mb-10">
+                <p className="text-[clamp(12px,4vw,30px)] transform-[translateZ(0)] text-justify
+                        font-head leading-relaxed whitespace-pre-line
+                        antialiased backface-hidden first-letter:text-5xl first-letter:font-bold first-letter:mr-1 ">
+                    {text}
+                </p>
             </div>
-        )
-    }
-)
-
-TextPage.displayName = 'TextPage'
+            <div className="mt-4 pt-3 text-center text-sm text-popover-foreground border-t border-popover-foreground">
+                {pageNumber}
+            </div>
+        </div>
+    )
+}
 
 export default ReactPageFlip
