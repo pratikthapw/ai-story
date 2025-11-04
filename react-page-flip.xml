@@ -1,0 +1,679 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.github/
+  FUNDING.yml
+src/
+  html-flip-book/
+    index.tsx
+    settings.ts
+  index.ts
+.eslintignore
+.eslintrc
+.gitignore
+.prettierrc
+LICENSE
+package.json
+README.md
+rollup.config.js
+tsconfig.json
+video.gif
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".github/FUNDING.yml">
+# These are supported funding model platforms
+
+custom: ['https://www.buymeacoffee.com/nndlik']
+</file>
+
+<file path="src/html-flip-book/settings.ts">
+export type PageState = 'user_fold' | 'fold_corner' | 'flipping' | 'read';
+export type PageOrientation = 'portrait' | 'landscape';
+
+export interface IFlipSetting {
+    /** Page number from which to start viewing */
+    startPage: number;
+    /** Whether the book will be stretched under the parent element or not */
+    size: 'fixed' | 'stretch';
+
+    width: number;
+    height: number;
+
+    minWidth: number;
+    maxWidth: number;
+    minHeight: number;
+    maxHeight: number;
+
+    /** Draw shadows or not when page flipping */
+    drawShadow: boolean;
+    /** Flipping animation time */
+    flippingTime: number;
+
+    /** Enable switching to portrait mode */
+    usePortrait: boolean;
+    /** Initial value to z-index */
+    startZIndex: number;
+    /** If this value is true, the parent element will be equal to the size of the book */
+    autoSize: boolean;
+    /** Shadow intensity (1: max intensity, 0: hidden shadows) */
+    maxShadowOpacity: number;
+
+    /** If this value is true, the first and the last pages will be marked as hard and will be shown in single page mode */
+    showCover: boolean;
+    /** Disable content scrolling when touching a book on mobile devices */
+    mobileScrollSupport: boolean;
+
+    /** Set the forward event of clicking on child elements (buttons, links) */
+    clickEventForward: boolean;
+
+    /** Using mouse and touch events to page flipping */
+    useMouseEvents: boolean;
+
+    swipeDistance: number;
+
+    /** if this value is true, fold the corners of the book when the mouse pointer is over them. */
+    showPageCorners: boolean;
+
+    /** if this value is true, flipping by clicking on the whole book will be locked. Only on corners */
+    disableFlipByClick: boolean;
+}
+
+export interface IBookState {
+    page: number;
+    mode: PageOrientation;
+}
+
+export interface IEventProps {
+    onFlip?: (flipEvent: any) => void;
+    onChangeOrientation?: (flipEvent: any) => void;
+    onChangeState?: (flipEvent: any) => void;
+    onInit?: (flipEvent: any) => void;
+    onUpdate?: (flipEvent: any) => void;
+}
+</file>
+
+<file path="src/index.ts">
+import { HTMLFlipBook } from './html-flip-book';
+
+export default HTMLFlipBook;
+</file>
+
+<file path=".eslintignore">
+node_modules/
+build/
+rollup.config.js
+</file>
+
+<file path=".eslintrc">
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "node": true,
+        "es6": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "airbnb/hooks",
+        "prettier",
+        "prettier/react",
+        "prettier/@typescript-eslint",
+        "plugin:prettier/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "project": "tsconfig.json",
+        "tsconfigRootDir": "."
+    },
+    "plugins": ["typescript", "@typescript-eslint", "react", "@typescript-eslint"],
+    "rules": {
+        "no-console": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "react/display-name": "off",
+        "strict": ["error", "global"],
+        "curly": "warn"
+    },
+    "settings": {
+        "react": {
+            "pragma": "React",
+            "version": "detect"
+        }
+    }
+}
+</file>
+
+<file path=".prettierrc">
+{
+    "printWidth": 100,
+    "singleQuote": true,
+    "tabWidth": 4
+}
+</file>
+
+<file path="LICENSE">
+MIT License
+
+Copyright (c) 2020 oleg.litovski9@gmail.com
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</file>
+
+<file path="tsconfig.json">
+{
+    "compilerOptions": {
+        "declaration": true,
+		"declarationDir": "build",
+		// "declarationDir": "../modal-demo/src/Modal",
+        "module": "esnext",
+        "target": "es6",
+        "lib": ["es6", "dom", "es2016", "es2017"],
+        "sourceMap": true,
+        "jsx": "react",
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "plugins": [{ "name": "typescript-plugin-css-modules" }]
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "build", "src/**/*.test.tsx"]
+}
+</file>
+
+<file path="src/html-flip-book/index.tsx">
+import React, {
+    ReactElement,
+    useCallback,
+    useEffect,
+    useImperativeHandle,
+    useRef,
+    useState,
+} from 'react';
+
+import { PageFlip } from 'page-flip';
+import { IFlipSetting, IEventProps } from './settings';
+
+interface IProps extends IFlipSetting, IEventProps {
+    className: string;
+    style: React.CSSProperties;
+    children: React.ReactNode;
+    renderOnlyPageLengthChange?: boolean;
+}
+
+const HTMLFlipBookForward = React.forwardRef(
+    (props: IProps, ref: React.MutableRefObject<PageFlip>) => {
+        const htmlElementRef = useRef<HTMLDivElement>(null);
+        const childRef = useRef<HTMLElement[]>([]);
+        const pageFlip = useRef<PageFlip>();
+
+        const [pages, setPages] = useState<ReactElement[]>([]);
+
+        useImperativeHandle(ref, () => ({
+            pageFlip: () => pageFlip.current,
+        }));
+
+        const refreshOnPageDelete = useCallback(() => {
+            if (pageFlip.current) {
+                pageFlip.current.clear();
+            }
+        }, []);
+
+        const removeHandlers = useCallback(() => {
+            const flip = pageFlip.current;
+
+            if (flip) {
+                flip.off('flip');
+                flip.off('changeOrientation');
+                flip.off('changeState');
+                flip.off('init');
+                flip.off('update');
+            }
+        }, []);
+
+        useEffect(() => {
+            childRef.current = [];
+
+            if (props.children) {
+                const childList = React.Children.map(props.children, (child) => {
+                    return React.cloneElement(child as ReactElement, {
+                        ref: (dom) => {
+                            if (dom) {
+                                childRef.current.push(dom);
+                            }
+                        },
+                    });
+                });
+
+                if (!props.renderOnlyPageLengthChange || pages.length !== childList.length) {
+                    if (childList.length < pages.length) {
+                        refreshOnPageDelete();
+                    }
+
+                    setPages(childList);
+                }
+            }
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [props.children]);
+
+        useEffect(() => {
+            const setHandlers = () => {
+                const flip = pageFlip.current;
+
+                if (flip) {
+                    if (props.onFlip) {
+                        flip.on('flip', (e: unknown) => props.onFlip(e));
+                    }
+
+                    if (props.onChangeOrientation) {
+                        flip.on('changeOrientation', (e: unknown) => props.onChangeOrientation(e));
+                    }
+
+                    if (props.onChangeState) {
+                        flip.on('changeState', (e: unknown) => props.onChangeState(e));
+                    }
+
+                    if (props.onInit) {
+                        flip.on('init', (e: unknown) => props.onInit(e));
+                    }
+
+                    if (props.onUpdate) {
+                        flip.on('update', (e: unknown) => props.onUpdate(e));
+                    }
+                }
+            };
+
+            if (pages.length > 0 && childRef.current.length > 0) {
+                removeHandlers();
+
+                if (htmlElementRef.current && !pageFlip.current) {
+                    pageFlip.current = new PageFlip(htmlElementRef.current, props);
+                }
+
+                if (!pageFlip.current.getFlipController()) {
+                    pageFlip.current.loadFromHTML(childRef.current);
+                } else {
+                    pageFlip.current.updateFromHtml(childRef.current);
+                }
+
+                setHandlers();
+            }
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [pages]);
+
+        return (
+            <div ref={htmlElementRef} className={props.className} style={props.style}>
+                {pages}
+            </div>
+        );
+    }
+);
+
+export const HTMLFlipBook = React.memo(HTMLFlipBookForward);
+</file>
+
+<file path=".gitignore">
+node_modules
+package-lock.json
+/build
+.vscode
+</file>
+
+<file path="rollup.config.js">
+import autoprefixer from 'autoprefixer';
+import postcss from 'rollup-plugin-postcss';
+import typescript from 'rollup-plugin-typescript2';
+
+export default {
+    external: ['react', 'react-dom', 'page-flip'],
+    input: 'src/index.ts',
+    watch: {
+        include: 'src/**',
+    },
+    output: [
+        {
+            file: 'build/index.js',
+            format: 'cjs',
+            sourcemap: true,
+        },
+        {
+            file: 'build/index.es.js',
+            format: 'esm',
+            sourcemap: true,
+        },
+    ],
+    plugins: [
+        typescript({ useTsconfigDeclarationDir: true }),
+        postcss({
+            plugins: [autoprefixer()],
+            minimize: true,
+        }),
+    ],
+};
+</file>
+
+<file path="README.md">
+[![GitHub license](https://img.shields.io/github/license/Nodlik/react-pageflip)](https://github.com/Nodlik/react-pageflip/blob/master/LICENSE) [![npm](https://img.shields.io/npm/v/react-pageflip)](https://www.npmjs.com/package/react-pageflip) [![npm](https://img.shields.io/npm/dm/react-pageflip)](https://npmcharts.com/compare/react-pageflip?minimal=true) [![](https://img.shields.io/badge/support-buymeacoffee-orange)](https://www.buymeacoffee.com/nndlik)
+
+# Version 2.0.0
+
+This version fixed some bugs and is completely written with react hooks.
+!!! Method access api changed !!!
+
+# React.js wrapper for StPageFlip
+
+Simple React.js wrapper for StPageFlip library, for creating realistic and beautiful page turning effect
+
+![](video.gif)
+
+### Features of StPageFlip
+
+-   Works with simple images on canvas and complex HTML blocks
+-   Has simple API and flexible configuration
+-   Compatible with mobile devices
+-   Supports landscape and portrait screen mode
+-   Supports soft and hard page types (only in HTML mode)
+-   No dependencies
+
+Live Demo with source code: https://nodlik.github.io/react-pageflip/
+
+Docs and examples to StPageFlip: https://nodlik.github.io/StPageFlip/
+
+Docs (generated by TypeDoc): https://nodlik.github.io/StPageFlip/docs/index.html
+
+### Installation
+
+You can install the latest version using npm:
+
+`npm install react-pageflip`
+
+### Basic Usage
+
+```jsx
+import HTMLFlipBook from 'react-pageflip';
+
+function MyBook(props) {
+    return (
+        <HTMLFlipBook width={300} height={500}>
+            <div className="demoPage">Page 1</div>
+            <div className="demoPage">Page 2</div>
+            <div className="demoPage">Page 3</div>
+            <div className="demoPage">Page 4</div>
+        </HTMLFlipBook>
+    );
+}
+```
+
+### Advanced Usage
+
+You can define pages as a component, but in this case you should use `React.forwardRef` method. Like this:
+
+```jsx
+const Page = React.forwardRef((props, ref) => {
+    return (
+        <div className="demoPage" ref={ref}>
+            /* ref required */
+            <h1>Page Header</h1>
+            <p>{props.children}</p>
+            <p>Page number: {props.number}</p>
+        </div>
+    );
+});
+
+function MyBook(props) {
+    return (
+        <HTMLFlipBook width={300} height={500}>
+            <Page number="1">Page text</Page>
+            <Page number="2">Page text</Page>
+            <Page number="3">Page text</Page>
+            <Page number="4">Page text</Page>
+        </HTMLFlipBook>
+    );
+}
+```
+
+### Props
+
+To set configuration use these props:
+
+-   `width: number` - required
+-   `height: number` - required
+-   `size: ("fixed", "stretch")` - default: `"fixed"` Whether the book will be stretched under the parent element or not
+-   `minWidth, maxWidth, minHeight, maxHeight: number` You must set threshold values ​​with size: `"stretch"`
+-   `drawShadow: bool` - default: `true` Draw shadows or not when page flipping
+-   `flippingTime: number` (milliseconds) - default: `1000` Flipping animation time
+-   `usePortrait: bool` - default: `true` Enable switching to portrait mode
+-   `startZIndex: number` - default: `0` Initial value to z-index
+-   `autoSize: bool` - default: `true` If this value is true, the parent element will be equal to the size of the book
+-   `maxShadowOpacity: number [0..1]` - default: `1` Shadow intensity (1: max intensity, 0: hidden shadows)
+-   `showCover: boolean` - default: `false` If this value is true, the first and the last pages will be marked as hard and will be shown in single page mode
+-   `mobileScrollSupport: boolean` - default: `true` disable content scrolling when touching a book on mobile devices
+-   `swipeDistance: number` - default: `30` (px) minimum distance to detect swipe
+-   `clickEventForward: boolean` - default: `true` forwarding click events to the page children html elements (only for `a` and `button` tags)
+-   `useMouseEvents: boolean` - default: `true` using mouse and touch events to page flipping
+-   `renderOnlyPageLengthChange: boolean` - default: `false` (NEW on 2.0.0) if this flag is active, the book will be updated and re-rendered ONLY if the number of pages has changed
+
+### Events
+
+You can use the following events:
+
+```jsx
+...
+function DemoBook() {
+    const onFlip = useCallback((e) => {
+        console.log('Current page: ' + e.data);
+    }, []);
+
+    return (
+        <HTMLFlipBook
+            /* props */
+            onFlip={onFlip}
+        >
+        /* ... pages */
+        </HTMLFlipBook>
+    )
+}
+```
+
+**Available events:**
+
+-   `onFlip: number` - triggered by page turning
+-   `onChangeOrientation: ("portrait", "landscape")` - triggered when page orientation changes
+-   `onChangeState: ("user_fold", "fold_corner", "flipping", "read")` - triggered when the state of the book changes
+-   `onInit: ({page: number, mode: 'portrait', 'landscape'})` - triggered when the book is init and the start page is loaded. Listen (`on`) this event before using the "loadFrom..." methods
+-   `onUpdate: ({page: number, mode: 'portrait', 'landscape'})` - triggered when the book pages are updated (using the "updateFrom..." methods)
+
+Event object has two fields: `data: number | string` and `object: PageFlip`
+
+### Methods
+
+To use methods, you need to get a `PageFlip` object. This can be done using React `ref` and `pageFlip(): PageFlip` method
+For example - flipping to the next page:
+
+```jsx
+  function DemoBook() {
+        const book = useRef();
+
+        return (
+            <>
+                <button onClick={() =>
+                    book.current.pageFlip().flipNext()}>Next page</button>
+
+                <HTMLFlipBook
+                    ...
+                    ref={book}
+                    ...
+                >
+                    /* ... pages */
+                </HTMLFlipBook>
+            </>
+        )
+  }
+```
+
+**Available methods:**
+
+| Method name           | Parameters                                   | Return type               | Description                                                    |
+| --------------------- | -------------------------------------------- | ------------------------- | -------------------------------------------------------------- |
+| `getPageCount`        | ` `                                          | `number`                  | Get number of all pages                                        |
+| `getCurrentPageIndex` | ` `                                          | `number`                  | Get the current page number (starts at 0)                      |
+| `getOrientation`      | ` `                                          | `'portrait', 'landscape'` | Get the current orientation: portrait or landscape             |
+| `getBoundsRect`       | ` `                                          | `PageRect`                | Get current book sizes and position                            |
+| `turnToPage`          | `pageNum: number`                            | `void`                    | Turn to the specified page number (without animation)          |
+| `turnToNextPage`      | ` `                                          | `void`                    | Turn to the next page (without animation)                      |
+| `turnToPrevPage`      | ` `                                          | `void`                    | Turn to the previous page (without animation)                  |
+| `flipNext`            | `corner: ['top', 'bottom']`                  | `void`                    | Turn to the next page (with animation)                         |
+| `flipPrev`            | `corner: ['top', 'bottom']`                  | `void`                    | Turn to the previous page (with animation)                     |
+| `flip`                | `pageNum: number, corner: ['top', 'bottom']` | `void`                    | Turn to the specified page (with animation)                    |
+| `loadFromImages`      | `images: ['path-to-image1.jpg', ...]`        | `void`                    | Load page from images                                          |
+| `loadFromHtml`        | `items: NodeListOf, HTMLElement[]`           | `void`                    | Load page from html elements                                   |
+| `updateFromHtml`      | `items: NodeListOf, HTMLElement[]`           | `void`                    | Update page from html elements                                 |
+| `updateFromImages`    | `images: ['path-to-image1.jpg', ...]`        | `void`                    | Update page from images                                        |
+| `destroy`             | ` `                                          | `void`                    | Destructor. Removes Parent HTML Element and all event handlers |
+
+### Contacts
+
+Oleg,
+
+<oleg.litovski9@gmail.com>
+
+https://github.com/Nodlik/react-pageflip
+
+[![Buy me a coffee][buymeacoffee-shield]][buymeacoffee]
+
+[buymeacoffee]: https://www.buymeacoffee.com/nndlik
+[buymeacoffee-shield]: https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png
+</file>
+
+<file path="package.json">
+{
+    "name": "react-pageflip",
+    "version": "2.0.3",
+    "author": "oleg.litovski9@gmail.com",
+    "license": "MIT",
+    "description": "Simple React.js wrapper for StPageFlip library, for creating realistic and beautiful page turning effect",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Nodlik/react-pageflip.git"
+    },
+    "homepage": "https://nodlik.github.io/react-pageflip/",
+    "main": "build/index.js",
+    "module": "build/index.es.js",
+    "files": [
+        "build"
+    ],
+    "scripts": {
+        "build": "rollup -c",
+        "build:dev": "rollup -c --watch",
+        "eslint": "eslint . --ext .ts,.tsx"
+    },
+    "devDependencies": {
+        "@rollup/plugin-commonjs": "^15.1.0",
+        "@rollup/plugin-node-resolve": "^9.0.0",
+        "@types/classnames": "^2.2.10",
+        "@typescript-eslint/eslint-plugin": "^4.2.0",
+        "@typescript-eslint/parser": "^4.2.0",
+        "autoprefixer": "^9.8.6",
+        "eslint": "^7.9.0",
+        "eslint-config-airbnb": "^18.2.0",
+        "eslint-config-prettier": "^6.11.0",
+        "eslint-plugin-jest": "^24.0.2",
+        "eslint-plugin-prettier": "^3.1.4",
+        "eslint-plugin-react": "^7.21.0",
+        "eslint-plugin-react-hooks": "^4.1.2",
+        "eslint-plugin-typescript": "^0.14.0",
+        "prettier": "^2.1.2",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1",
+        "rollup": "^2.26.0",
+        "rollup-plugin-peer-deps-external": "^2.2.3",
+        "rollup-plugin-postcss": "^3.1.8",
+        "rollup-plugin-terser": "^7.0.2",
+        "rollup-plugin-typescript2": "^0.27.2",
+        "typescript": "^4.0.3",
+        "typescript-plugin-css-modules": "^2.7.0"
+    },
+    "dependencies": {
+        "page-flip": "latest"
+    },
+    "keywords": [
+        "react",
+        "reactjs",
+        "page",
+        "flip",
+        "book",
+        "reader",
+        "fold",
+        "frontend",
+        "javascript"
+    ]
+}
+</file>
+
+</files>

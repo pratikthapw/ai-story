@@ -118,7 +118,7 @@ export const BookFlip: React.FC<BookFlipProps> = ({
                         style={{ transform: "translateX(10px)", zIndex: 1 }}
                     />
                     <div
-                        className="absolute top-[6px] right-[6px] bottom-[6px] left-0
+                        className="absolute top-1.5 right-1.5 bottom-1.5 left-0
               border-t border-r border-b border-border/30 bg-background"
                         style={{ transform: "translateX(20px)", zIndex: 0 }}
                     />
@@ -156,7 +156,7 @@ export const BookFlip: React.FC<BookFlipProps> = ({
                 </div>
 
                 <div
-                    className="absolute inset-0 flex [perspective:1600px]"
+                    className="absolute inset-0 flex perspective-[1600px]"
                     style={{ zIndex: 10 }}
                 >
                     <div
@@ -199,17 +199,17 @@ export const BookFlip: React.FC<BookFlipProps> = ({
                                     "transform-3d",
                                     "bg-background",
                                     `transition-transform duration-900
-                  [transition-timing-function:cubic-bezier(0.645,0.045,0.355,1)]`,
+                  ease-[cubic-bezier(0.645,0.045,0.355,1)]`,
                                     flipped
-                                        ? "[transform-origin:left] [transform:rotateY(-180deg)]"
-                                        : "[transform-origin:left] [transform:rotateY(0deg)]",
+                                        ? "origin-[left] transform-[rotateY(-180deg)]"
+                                        : "origin-[left] transform-[rotateY(0deg)]",
                                     "select-none",
                                     "before:absolute before:top-0 before:bottom-0 before:left-0",
-                                    "before:pointer-events-none before:z-[25] before:w-[6px]",
-                                    `before:bg-gradient-to-r before:from-gray-200/80
+                                    "before:pointer-events-none before:z-25 before:w-1.5",
+                                    `before:bg-linear-to-r before:from-gray-200/80
                   before:via-gray-100/50 before:to-transparent`,
                                     `before:opacity-0 before:transition-opacity
-                  before:duration-[900ms]`,
+                  before:duration-900`,
                                     isActive && !flipped ? "before:opacity-100" : ""
                                 )}
                                 style={{
@@ -222,8 +222,8 @@ export const BookFlip: React.FC<BookFlipProps> = ({
                             >
                                 <div
                                     className="absolute inset-0
-                    [transform:rotateY(0deg)_translateZ(1px)]
-                    [backface-visibility:hidden]"
+                    transform-[rotateY(0deg)_translateZ(1px)]
+                    backface-hidden"
                                     onClick={goNext}
                                 >
                                     <div
@@ -231,9 +231,9 @@ export const BookFlip: React.FC<BookFlipProps> = ({
                       px-6 pt-8 pb-10 text-xl select-none sm:px-8"
                                     >
                                         <div
-                                            className="[transform:translateZ(0)] text-justify
+                                            className="transform-[translateZ(0)] text-justify
                         font-head text-xl leading-relaxed whitespace-pre-line
-                        antialiased [backface-visibility:hidden]"
+                        antialiased backface-hidden"
                                         >
                                             {p.content}
                                         </div>
@@ -249,8 +249,8 @@ export const BookFlip: React.FC<BookFlipProps> = ({
 
                                 <div
                                     className="absolute inset-0
-                    [transform:rotateY(180deg)_translateZ(0px)]
-                    [backface-visibility:hidden]"
+                    transform-[rotateY(180deg)_translateZ(0px)]
+                    backface-hidden"
                                     onClick={goPrev}
                                 >
                                     <div className="relative h-full text-center select-none">
